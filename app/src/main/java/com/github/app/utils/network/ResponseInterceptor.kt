@@ -3,9 +3,12 @@ package com.github.app.utils.network
 import okhttp3.Interceptor
 import okhttp3.Response
 
-class ResponseInterceptor : Interceptor{
+class ResponseInterceptor : Interceptor {
 
     override fun intercept(chain: Interceptor.Chain): Response {
-        TODO("Not yet implemented")
+        val response = chain.proceed(chain.request())
+        val responseCode = response.code
+
+        return response
     }
 }

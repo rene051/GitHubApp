@@ -2,8 +2,12 @@ package com.github.app.di
 
 import com.github.app.data.api.ApiConst.Companion.BASE_URL
 import com.github.app.data.api.GitHubApi
+import com.github.app.data.api.NetworkApi
 import com.github.app.data.api.NetworkApiImpl
+import com.github.app.data.repositories.SearchRepoRepository
+import com.github.app.data.repositories.impl.SearchRepoRepositoryImpl
 import com.github.app.utils.network.ResponseInterceptor
+import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterFactory
 import okhttp3.OkHttpClient
 import org.koin.dsl.module
 import retrofit2.Retrofit
@@ -27,11 +31,14 @@ val NetModule = module {
             .baseUrl(BASE_URL)
             .client(get())
             .addConverterFactory(GsonConverterFactory.create())
+            .addCallAdapterFactory(CoroutineCallAdapterFactory())
             .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
             .build()
             .create(GitHubApi::class.java)) as GitHubApi
     }
 
-    single { NetworkApiImpl(get()) }
+    single { NetworkApiImpl(get()) as NetworkApi}
+
+    single { SearchRepoRepositoryImpl(get()) as SearchRepoRepository }
 
 }
