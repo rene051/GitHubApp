@@ -7,6 +7,6 @@ interface ApiConst {
 
         const val ACCEPT_HEADER = "Accept: application/vnd.github.mercy-preview+json"
 
-        const val SEARCH_REPOSITORIES = "/search/repositories"
+        const val SEARCH_REPOSITORIES = "/search/repositoriess"
     }
 }

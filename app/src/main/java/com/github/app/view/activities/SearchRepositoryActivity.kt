@@ -3,12 +3,19 @@ package com.github.app.view.activities
 import android.os.Bundle
 import android.view.Menu
 import android.view.View
+import android.widget.AdapterView
+import android.widget.ArrayAdapter
 import android.widget.SearchView
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.github.app.R
+import com.github.app.common.AppConst.Companion.FORKS
+import com.github.app.common.AppConst.Companion.NO_FILTER
+import com.github.app.common.AppConst.Companion.STARS
+import com.github.app.common.AppConst.Companion.UPDATED
+import com.github.app.data.models.SearchRepository
 import com.github.app.data.models.SearchRepositoryItems
-import com.github.app.utils.observe
+import com.github.app.utils.helpers.observe
 import com.github.app.view.ActivityManager
 import com.github.app.view.BaseActivity
 import com.github.app.view.adapters.SearchRepositoryAdapter
@@ -18,7 +25,8 @@ import org.koin.core.inject
 import org.koin.core.parameter.parametersOf
 
 
-class SearchRepositoryActivity : BaseActivity(), SearchView.OnQueryTextListener {
+class SearchRepositoryActivity : BaseActivity(), SearchView.OnQueryTextListener,
+    AdapterView.OnItemSelectedListener {
 
     private val activityManager: ActivityManager by inject { parametersOf(this) }
 
@@ -27,6 +35,7 @@ class SearchRepositoryActivity : BaseActivity(), SearchView.OnQueryTextListener 
     private lateinit var searchRepoList: ArrayList<SearchRepositoryItems>
     private var searchQuery: String = ""
     private var sortQuery: String = ""
+    private val filterOptions = arrayOf(NO_FILTER, STARS, FORKS, UPDATED)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -34,6 +43,7 @@ class SearchRepositoryActivity : BaseActivity(), SearchView.OnQueryTextListener 
 
         init()
         setViewModel()
+        clickListeners()
         observeViewModel()
         setAdapter()
     }
@@ -50,27 +60,30 @@ class SearchRepositoryActivity : BaseActivity(), SearchView.OnQueryTextListener 
 
     private fun init() {
         searchRepoList = ArrayList()
+
         searchRepoAdapter = SearchRepositoryAdapter(this, searchRepoList)
+
+        filterSpinner.adapter =
+            ArrayAdapter(this, android.R.layout.simple_list_item_1, filterOptions)
+
     }
 
     private fun setViewModel() {
         searchRepoViewModel = ViewModelProvider(this).get(SearchRepoViewModel::class.java)
     }
 
-    private fun observeViewModel() {
-        searchRepoViewModel.repoFetched.observe(this) {
-            loadingProgressBar.hide()
+    private fun clickListeners() {
+        filterSpinner.onItemSelectedListener = this
+    }
 
-            if(!it!!.items.isNullOrEmpty()) {
-                with(searchRepoList) {
-                    clear()
-                    addAll(it.items!!)
-                }
-                searchRepositoryRecyclerView.visibility = View.VISIBLE
-                searchRepoAdapter.notifyDataSetChanged()
-            } else {
-                emptyListMessageTxt.visibility = View.VISIBLE
-            }
+    private fun observeViewModel() {
+        searchRepoViewModel.error.observe(this) {
+            searchRepoResponseLayout(null)
+            showError(it?.message!!)
+        }
+
+        searchRepoViewModel.repoFetched.observe(this) {
+            searchRepoResponseLayout(it)
         }
     }
 
@@ -79,6 +92,13 @@ class SearchRepositoryActivity : BaseActivity(), SearchView.OnQueryTextListener 
             layoutManager = LinearLayoutManager(context)
             adapter = searchRepoAdapter
         }
+    }
+
+    override fun onNothingSelected(p0: AdapterView<*>?) {}
+
+    override fun onItemSelected(p0: AdapterView<*>?, p1: View?, position: Int, id: Long) {
+        sortQuery = if (position == 0) "" else filterOptions[position]
+        searchRepositories()
     }
 
     override fun onQueryTextSubmit(searchQuery: String?): Boolean {
@@ -93,10 +113,27 @@ class SearchRepositoryActivity : BaseActivity(), SearchView.OnQueryTextListener 
     }
 
     private fun searchRepositories() {
-        searchRepoViewModel.searchRepositories(searchQuery, sortQuery)
-        loadingProgressBar.show()
-        emptyListMessageTxt.visibility = View.GONE
-        searchRepositoryRecyclerView.visibility = View.GONE
+        if (searchQuery.isNotEmpty()) {
+            searchRepoViewModel.searchRepositories(searchQuery, sortQuery)
+            loadingProgressBar.show()
+            emptyListMessageTxt.visibility = View.GONE
+            searchRepositoryRecyclerView.visibility = View.GONE
+        }
+    }
+
+    private fun searchRepoResponseLayout(repo: SearchRepository?) {
+        loadingProgressBar.hide()
+
+        if (!repo?.items.isNullOrEmpty()) {
+            with(searchRepoList) {
+                clear()
+                addAll(repo!!.items!!)
+            }
+            searchRepositoryRecyclerView.visibility = View.VISIBLE
+            searchRepoAdapter.notifyDataSetChanged()
+        } else {
+            emptyListMessageTxt.visibility = View.VISIBLE
+        }
     }
 
 }

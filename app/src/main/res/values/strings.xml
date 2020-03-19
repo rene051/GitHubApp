@@ -3,4 +3,11 @@
     
     <string name="search_repositories">Search repositories</string>
     <string name="there_are_no_items_to_show">There are no items to show</string>
+
+    <string name="stars">Stars</string>
+    <string name="forks">Forks</string>
+    <string name="updated">Updated</string>
+    <string name="ok">OK</string>
+    <string name="error_has_occurred">Error has occurred</string>
+
 </resources>

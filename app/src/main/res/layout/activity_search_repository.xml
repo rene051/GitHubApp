@@ -1,34 +1,78 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".view.activities.SearchRepositoryActivity">
 
+    <LinearLayout
+        android:id="@+id/sortLinearLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:weightSum="2"
+        android:layout_margin="8dp">
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            >
+
+            <TextView
+                android:id="@+id/filterTxt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Select filter: "
+                android:textColor="@color/colorPrimaryDark"
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true"
+                android:textSize="16sp"
+                android:textStyle="bold" />
+
+        </RelativeLayout>
+
+        <Spinner
+            android:id="@+id/filterSpinner"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            />
+
+    </LinearLayout>
+
+    <View
+        android:id="@+id/separatorView"
+        android:layout_width="wrap_content"
+        android:layout_height="1dp"
+        android:layout_below="@+id/sortLinearLayout"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:background="@color/colorPrimaryDark"
+        />
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/searchRepositoryRecyclerView"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        android:layout_height="match_parent"
+        android:layout_below="@+id/separatorView" />
 
     <TextView
         android:id="@+id/emptyListMessageTxt"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/there_are_no_items_to_show"
         android:layout_centerHorizontal="true"
         android:layout_centerVertical="true"
-        />
+        android:text="@string/there_are_no_items_to_show" />
 
     <androidx.core.widget.ContentLoadingProgressBar
         android:id="@+id/loadingProgressBar"
+        style="?android:attr/progressBarStyle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerVertical="true"
         android:layout_centerHorizontal="true"
-        style="?android:attr/progressBarStyle"
+        android:layout_centerVertical="true"
         android:visibility="gone"
+        android:indeterminateTint="@color/colorPrimary"
         />
 
 </RelativeLayout>

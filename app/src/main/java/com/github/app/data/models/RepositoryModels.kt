@@ -42,7 +42,7 @@ data class SearchRepositoryItems(
     @SerializedName("language")
     var language: String? = null,
 
-    @SerializedName("fork_count")
+    @SerializedName("forks_count")
     var forkCount: Int? = null,
 
     @SerializedName("open_issues_count")
