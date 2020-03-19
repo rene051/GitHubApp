@@ -1,17 +1,22 @@
 package com.github.app.utils.network
 
+import android.net.ConnectivityManager
 import okhttp3.Interceptor
 import okhttp3.Response
-import java.lang.Exception
 
-class ResponseInterceptor : Interceptor {
+
+class ResponseInterceptor(private val internetConnectionManager: InternetConnectionManager) : Interceptor {
 
     override fun intercept(chain: Interceptor.Chain): Response {
         try {
-        val response = chain.proceed(chain.request())
-        val responseCode = response.code
+            if (!internetConnectionManager.hasInternetConnection()) {
+                throw InternetConnectionException()
+            }
 
-            if(responseCode != 200) {
+            val response = chain.proceed(chain.request())
+            val responseCode = response.code
+
+            if (responseCode != 200) {
                 throw NetworkException(response)
             }
             return response
@@ -19,4 +24,5 @@ class ResponseInterceptor : Interceptor {
             throw e
         }
     }
+
 }

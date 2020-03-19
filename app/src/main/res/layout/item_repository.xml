@@ -35,7 +35,7 @@
                 android:id="@+id/repoNameDesc"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Repository: "
+                android:text="@string/repository"
                 android:textStyle="bold" />
 
             <TextView
@@ -45,8 +45,7 @@
                 android:layout_marginEnd="16dp"
                 android:layout_toEndOf="@+id/repoNameDesc"
                 android:ellipsize="end"
-                android:maxLines="1"
-                android:text="{Repository name}" />
+                android:maxLines="1" />
 
         </RelativeLayout>
 
@@ -62,7 +61,7 @@
                 android:id="@+id/ownerNameDesc"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Owner: "
+                android:text="@string/owner"
                 android:textStyle="bold" />
 
             <TextView
@@ -72,8 +71,7 @@
                 android:layout_marginEnd="16dp"
                 android:layout_toEndOf="@+id/ownerNameDesc"
                 android:ellipsize="end"
-                android:maxLines="1"
-                android:text="{Owner name}" />
+                android:maxLines="1" />
 
         </RelativeLayout>
 
@@ -83,6 +81,7 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/userImage"
             android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
             android:weightSum="3">
 
             <RelativeLayout
@@ -95,15 +94,14 @@
                     android:id="@+id/repoLanguageDescTxt"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Language: "
+                    android:text="@string/language"
                     android:textStyle="bold" />
 
                 <TextView
                     android:id="@+id/repoLanguageNameTxt"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_toEndOf="@+id/repoLanguageDescTxt"
-                    android:text="{Language}" />
+                    android:layout_toEndOf="@+id/repoLanguageDescTxt" />
 
             </RelativeLayout>
 
@@ -117,15 +115,14 @@
                     android:id="@+id/repoScoreDescTxt"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Score: "
+                    android:text="@string/score"
                     android:textStyle="bold" />
 
                 <TextView
                     android:id="@+id/repoScoreNameTxt"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_toEndOf="@+id/repoScoreDescTxt"
-                    android:text="{10}" />
+                    android:layout_toEndOf="@+id/repoScoreDescTxt" />
 
             </RelativeLayout>
 
@@ -137,14 +134,14 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/repoLanguageInfoLinearLayout"
             android:layout_marginStart="16dp"
-            android:layout_marginTop="8dp"
-            >
+            android:layout_marginEnd="16dp"
+            android:layout_marginTop="8dp">
 
             <TextView
                 android:id="@+id/repoDescDescTxt"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Description:"
+                android:text="@string/description"
                 android:textStyle="bold" />
 
             <TextView
@@ -152,7 +149,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/repoDescDescTxt"
-                android:text="{Desc}" />
+                android:ellipsize="end"
+                android:maxLines="3"
+                />
 
         </RelativeLayout>
 
@@ -160,11 +159,10 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/repoDescRelativeLayout"
-            android:baselineAligned="false"
-            android:weightSum="3"
             android:layout_marginTop="8dp"
             android:layout_marginBottom="16dp"
-            >
+            android:baselineAligned="false"
+            android:weightSum="3">
 
             <RelativeLayout
                 android:id="@+id/watcherInfoRelativeLayout"
@@ -177,7 +175,7 @@
                     android:id="@+id/watcherCountDesc"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Watchers: "
+                    android:text="@string/watchers"
                     android:textStyle="bold" />
 
                 <TextView
@@ -187,8 +185,7 @@
                     android:layout_marginEnd="16dp"
                     android:layout_toEndOf="@+id/watcherCountDesc"
                     android:ellipsize="end"
-                    android:maxLines="1"
-                    android:text="{5}" />
+                    android:maxLines="1" />
 
             </RelativeLayout>
 
@@ -202,7 +199,7 @@
                     android:id="@+id/forkCountDesc"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Forks: "
+                    android:text="@string/forks_"
                     android:textStyle="bold" />
 
                 <TextView
@@ -212,8 +209,7 @@
                     android:layout_marginEnd="16dp"
                     android:layout_toEndOf="@+id/forkCountDesc"
                     android:ellipsize="end"
-                    android:maxLines="1"
-                    android:text="{2}" />
+                    android:maxLines="1" />
 
             </RelativeLayout>
 
@@ -227,7 +223,7 @@
                     android:id="@+id/issueCountDesc"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Issues: "
+                    android:text="@string/issues"
                     android:textStyle="bold" />
 
                 <TextView
@@ -237,8 +233,7 @@
                     android:layout_marginEnd="16dp"
                     android:layout_toEndOf="@+id/issueCountDesc"
                     android:ellipsize="end"
-                    android:maxLines="1"
-                    android:text="{5}" />
+                    android:maxLines="1" />
 
             </RelativeLayout>
 

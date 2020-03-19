@@ -79,7 +79,7 @@ class SearchRepositoryActivity : BaseActivity(), SearchView.OnQueryTextListener,
     private fun observeViewModel() {
         searchRepoViewModel.error.observe(this) {
             searchRepoResponseLayout(null)
-            showError(it?.message!!)
+            handleError(it)
         }
 
         searchRepoViewModel.repoFetched.observe(this) {
@@ -108,8 +108,9 @@ class SearchRepositoryActivity : BaseActivity(), SearchView.OnQueryTextListener,
         return true
     }
 
-    override fun onQueryTextChange(p0: String?): Boolean {
-        return false
+    override fun onQueryTextChange(searchQuery: String?): Boolean {
+        if(searchQuery.isNullOrEmpty()) this.searchQuery = ""
+        return true
     }
 
     private fun searchRepositories() {

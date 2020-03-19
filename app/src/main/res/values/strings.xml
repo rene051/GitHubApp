@@ -9,5 +9,13 @@
     <string name="updated">Updated</string>
     <string name="ok">OK</string>
     <string name="error_has_occurred">Error has occurred</string>
+    <string name="repository">Repository:</string>
+    <string name="owner">Owner:</string>
+    <string name="language">Language:</string>
+    <string name="score">Score:</string>
+    <string name="description">Description:</string>
+    <string name="watchers">Watchers:</string>
+    <string name="forks_">Forks:</string>
+    <string name="issues">Issues:</string>
 
 </resources>
