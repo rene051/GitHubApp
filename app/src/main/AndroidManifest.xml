@@ -23,6 +23,23 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <activity
+            android:name=".view.activities.RepositoryDetailActivity"
+            android:screenOrientation="portrait" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".view.activities.SearchRepositoryActivity" />
+        </activity>
+
+        <activity
+            android:name=".view.activities.UserDetailActivity"
+            android:screenOrientation="portrait" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".view.activities.SearchRepositoryActivity" />
+        </activity>
+
     </application>
 
 </manifest>

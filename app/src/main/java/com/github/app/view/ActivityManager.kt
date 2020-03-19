@@ -2,7 +2,7 @@ package com.github.app.view
 
 interface ActivityManager {
 
-    fun openRepositoryDetailsActivity()
+    fun openRepositoryDetailActivity()
 
-    fun openUserDetailsActivity()
+    fun openUserDetailActivity()
 }

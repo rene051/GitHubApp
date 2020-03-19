@@ -13,20 +13,21 @@ import com.github.app.common.AppConst.Companion.FORKS
 import com.github.app.common.AppConst.Companion.NO_FILTER
 import com.github.app.common.AppConst.Companion.STARS
 import com.github.app.common.AppConst.Companion.UPDATED
+import com.github.app.data.models.RepoOwner
 import com.github.app.data.models.SearchRepository
 import com.github.app.data.models.SearchRepositoryItems
 import com.github.app.utils.helpers.observe
 import com.github.app.view.ActivityManager
 import com.github.app.view.BaseActivity
 import com.github.app.view.adapters.SearchRepositoryAdapter
+import com.github.app.view.listeners.SearchRepositoryClickListener
 import com.github.app.viewmodel.SearchRepoViewModel
 import kotlinx.android.synthetic.main.activity_search_repository.*
 import org.koin.core.inject
 import org.koin.core.parameter.parametersOf
 
-
 class SearchRepositoryActivity : BaseActivity(), SearchView.OnQueryTextListener,
-    AdapterView.OnItemSelectedListener {
+    AdapterView.OnItemSelectedListener, SearchRepositoryClickListener {
 
     private val activityManager: ActivityManager by inject { parametersOf(this) }
 
@@ -36,6 +37,12 @@ class SearchRepositoryActivity : BaseActivity(), SearchView.OnQueryTextListener,
     private var searchQuery: String = ""
     private var sortQuery: String = ""
     private val filterOptions = arrayOf(NO_FILTER, STARS, FORKS, UPDATED)
+
+    override fun onResume() {
+        super.onResume()
+
+        searchRepositoryRecyclerView.requestFocus()
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -61,7 +68,7 @@ class SearchRepositoryActivity : BaseActivity(), SearchView.OnQueryTextListener,
     private fun init() {
         searchRepoList = ArrayList()
 
-        searchRepoAdapter = SearchRepositoryAdapter(this, searchRepoList)
+        searchRepoAdapter = SearchRepositoryAdapter(this, searchRepoList, this)
 
         filterSpinner.adapter =
             ArrayAdapter(this, android.R.layout.simple_list_item_1, filterOptions)
@@ -94,7 +101,7 @@ class SearchRepositoryActivity : BaseActivity(), SearchView.OnQueryTextListener,
         }
     }
 
-    override fun onNothingSelected(p0: AdapterView<*>?) {}
+    override fun onNothingSelected(p0: AdapterView<*>?) { }
 
     override fun onItemSelected(p0: AdapterView<*>?, p1: View?, position: Int, id: Long) {
         sortQuery = if (position == 0) "" else filterOptions[position]
@@ -111,6 +118,14 @@ class SearchRepositoryActivity : BaseActivity(), SearchView.OnQueryTextListener,
     override fun onQueryTextChange(searchQuery: String?): Boolean {
         if(searchQuery.isNullOrEmpty()) this.searchQuery = ""
         return true
+    }
+
+    override fun onAvatarClicked(repoOwner: RepoOwner) {
+        activityManager.openUserDetailActivity()
+    }
+
+    override fun onRepoClicked(searchRepoItem: SearchRepositoryItems) {
+        activityManager.openRepositoryDetailActivity()
     }
 
     private fun searchRepositories() {

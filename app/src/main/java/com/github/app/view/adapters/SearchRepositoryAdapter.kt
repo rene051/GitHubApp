@@ -8,10 +8,12 @@ import com.bumptech.glide.Glide
 import com.github.app.R
 import com.github.app.data.models.SearchRepositoryItems
 import com.github.app.view.holders.SearchRepositoryViewHolder
+import com.github.app.view.listeners.SearchRepositoryClickListener
 
 class SearchRepositoryAdapter(
     private var activity: Activity,
-    private var searchRepoList: ArrayList<SearchRepositoryItems>
+    private var searchRepoList: ArrayList<SearchRepositoryItems>,
+    private var searchItemListener: SearchRepositoryClickListener
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
@@ -37,6 +39,14 @@ class SearchRepositoryAdapter(
         holder.watcherCount.text = item.watchersCount.toString()
         holder.forkCount.text = item.forkCount.toString()
         holder.issueCount.text = item.openIssuesCount.toString()
+
+        holder.userImage.setOnClickListener {
+            searchItemListener.onAvatarClicked(item.owner!!)
+        }
+
+        holder.itemRelativeLayout.setOnClickListener {
+            searchItemListener.onRepoClicked(item)
+        }
 
     }
 

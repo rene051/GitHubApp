@@ -42,6 +42,7 @@
                 android:id="@+id/repoName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="4dp"
                 android:layout_marginEnd="16dp"
                 android:layout_toEndOf="@+id/repoNameDesc"
                 android:ellipsize="end"
@@ -68,6 +69,7 @@
                 android:id="@+id/ownerName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="4dp"
                 android:layout_marginEnd="16dp"
                 android:layout_toEndOf="@+id/ownerNameDesc"
                 android:ellipsize="end"
@@ -101,6 +103,7 @@
                     android:id="@+id/repoLanguageNameTxt"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginStart="4dp"
                     android:layout_toEndOf="@+id/repoLanguageDescTxt" />
 
             </RelativeLayout>
@@ -122,6 +125,7 @@
                     android:id="@+id/repoScoreNameTxt"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginStart="4dp"
                     android:layout_toEndOf="@+id/repoScoreDescTxt" />
 
             </RelativeLayout>
@@ -134,8 +138,8 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/repoLanguageInfoLinearLayout"
             android:layout_marginStart="16dp"
-            android:layout_marginEnd="16dp"
-            android:layout_marginTop="8dp">
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="16dp">
 
             <TextView
                 android:id="@+id/repoDescDescTxt"
@@ -150,8 +154,7 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/repoDescDescTxt"
                 android:ellipsize="end"
-                android:maxLines="3"
-                />
+                android:maxLines="3" />
 
         </RelativeLayout>
 
@@ -182,6 +185,7 @@
                     android:id="@+id/watcherCount"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginStart="4dp"
                     android:layout_marginEnd="16dp"
                     android:layout_toEndOf="@+id/watcherCountDesc"
                     android:ellipsize="end"
@@ -206,6 +210,7 @@
                     android:id="@+id/forkCount"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginStart="4dp"
                     android:layout_marginEnd="16dp"
                     android:layout_toEndOf="@+id/forkCountDesc"
                     android:ellipsize="end"
@@ -230,6 +235,7 @@
                     android:id="@+id/issueCount"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginStart="4dp"
                     android:layout_marginEnd="16dp"
                     android:layout_toEndOf="@+id/issueCountDesc"
                     android:ellipsize="end"
