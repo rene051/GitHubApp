@@ -39,6 +39,7 @@ class UserDetailActivity : BaseActivity(), SwipeRefreshLayout.OnRefreshListener 
 
     override fun onPrepareOptionsMenu(menu: Menu?): Boolean {
         browseUserMenuItem = menu!!.findItem(R.id.openInBrowser)
+        browseUserMenuItem.isVisible = false
 
         return super.onPrepareOptionsMenu(menu)
     }

@@ -70,9 +70,12 @@ class RepositoryDetailActivity : BaseActivity() {
         fullNameTxt.text = repo.fullName.showErrorOrText()
         descriptionTxt.text = repo.description.showErrorOrText()
         languageTxt.text = repo.language.showErrorOrText()
-        createDateTxt.text = repo.createdAt?.convertDate(DEFAULT_DATE_FORMAT, VISIBLE_DATE_FORMAT).showErrorOrText()
-        updateDateTxt.text = repo.updatedAt?.convertDate(DEFAULT_DATE_FORMAT, VISIBLE_DATE_FORMAT).showErrorOrText()
-        pushedDateTxt.text = repo.pushedAt?.convertDate(DEFAULT_DATE_FORMAT, VISIBLE_DATE_FORMAT).showErrorOrText()
+        createDateTxt.text =
+            repo.createdAt?.convertDate(DEFAULT_DATE_FORMAT, VISIBLE_DATE_FORMAT).showErrorOrText()
+        updateDateTxt.text =
+            repo.updatedAt?.convertDate(DEFAULT_DATE_FORMAT, VISIBLE_DATE_FORMAT).showErrorOrText()
+        pushedDateTxt.text =
+            repo.pushedAt?.convertDate(DEFAULT_DATE_FORMAT, VISIBLE_DATE_FORMAT).showErrorOrText()
         watchersTxt.text = repo.watchersCount.toString()
         forksTxt.text = repo.forkCount.toString()
         issuesTxt.text = repo.openIssuesCount.toString()
