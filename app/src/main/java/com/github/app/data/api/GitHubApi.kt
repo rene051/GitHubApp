@@ -15,7 +15,7 @@ interface GitHubApi {
 
     @Headers(ACCEPT_HEADER)
     @GET(SEARCH_REPOSITORIES)
-    fun searchRepositoriesAsync(@Query("q") query: String, @Query("sort") sort: String) : Deferred<Response<SearchRepository>>
+    fun searchRepositoriesAsync(@Query("q") query: String, @Query("sort") sort: String, @Query("page") page: Int) : Deferred<Response<SearchRepository>>
 
     @Headers(ACCEPT_HEADER)
     @GET

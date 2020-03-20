@@ -18,9 +18,9 @@ class SearchRepoViewModel : BaseViewModel(), KoinComponent {
     private val _repoFetched = MutableLiveData<SearchRepository>()
     val repoFetched: LiveData<SearchRepository> get() = _repoFetched
 
-    fun searchRepositories(query: String, sort: String) {
+    fun searchRepositories(query: String, sort: String, page: Int) {
         GlobalScope.launch {
-            when (val response = searchRepoRepository.searchDetails(query, sort)) {
+            when (val response = searchRepoRepository.searchDetails(query, sort, page)) {
                 is ResponseSuccess -> _repoFetched.postValue(response.data)
                 is ResponseError -> handleError(response.t)
             }

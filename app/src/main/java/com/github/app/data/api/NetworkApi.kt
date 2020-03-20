@@ -7,7 +7,7 @@ import retrofit2.Response
 
 interface NetworkApi {
 
-    fun searchRepositoriesAsync(query: String, sort: String): Deferred<Response<SearchRepository>>
+    fun searchRepositoriesAsync(query: String, sort: String, page: Int): Deferred<Response<SearchRepository>>
 
     fun getUserAsync(url: String): Deferred<Response<RepoOwner>>
 

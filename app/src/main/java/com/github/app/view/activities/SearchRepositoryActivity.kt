@@ -8,6 +8,7 @@ import android.widget.ArrayAdapter
 import android.widget.SearchView
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.github.app.R
 import com.github.app.common.AppConst.Companion.FORKS
@@ -38,6 +39,10 @@ class SearchRepositoryActivity : BaseActivity(), SearchView.OnQueryTextListener,
     private lateinit var searchRepoViewModel: SearchRepoViewModel
     private lateinit var searchRepoAdapter: SearchRepositoryAdapter
     private lateinit var searchRepoList: ArrayList<SearchRepositoryItems>
+    private lateinit var mLayoutManager: LinearLayoutManager
+    private lateinit var response: SearchRepository
+    private var loading = false
+    private var page = 1
     private var searchQuery: String = ""
     private var sortQuery: String = ""
     private val filterOptions = arrayOf(NO_FILTER, STARS, FORKS, UPDATED)
@@ -57,6 +62,7 @@ class SearchRepositoryActivity : BaseActivity(), SearchView.OnQueryTextListener,
         clickListeners()
         observeViewModel()
         setAdapter()
+        pagination()
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -70,7 +76,8 @@ class SearchRepositoryActivity : BaseActivity(), SearchView.OnQueryTextListener,
     }
 
     override fun onRefresh() {
-        searchRepositories()
+        searchRepositories(1)
+        searchRepoList.clear()
     }
 
     private fun init() {
@@ -80,7 +87,6 @@ class SearchRepositoryActivity : BaseActivity(), SearchView.OnQueryTextListener,
 
         filterSpinner.adapter =
             ArrayAdapter(this, android.R.layout.simple_list_item_1, filterOptions)
-
     }
 
     private fun setViewModel() {
@@ -104,8 +110,9 @@ class SearchRepositoryActivity : BaseActivity(), SearchView.OnQueryTextListener,
     }
 
     private fun setAdapter() {
+        mLayoutManager = LinearLayoutManager(this)
         with(searchRepositoryRecyclerView) {
-            layoutManager = LinearLayoutManager(context)
+            layoutManager = mLayoutManager
             adapter = searchRepoAdapter
         }
     }
@@ -114,12 +121,14 @@ class SearchRepositoryActivity : BaseActivity(), SearchView.OnQueryTextListener,
 
     override fun onItemSelected(p0: AdapterView<*>?, p1: View?, position: Int, id: Long) {
         sortQuery = if (position == 0) "" else filterOptions[position].toLowerCase(Locale.ENGLISH)
-        searchRepositories()
+        searchRepositories(1)
+        searchRepoList.clear()
     }
 
     override fun onQueryTextSubmit(searchQuery: String?): Boolean {
         this.searchQuery = searchQuery!!
-        searchRepositories()
+        searchRepositories(1)
+        searchRepoList.clear()
         hideKeyboard()
         return true
     }
@@ -137,9 +146,10 @@ class SearchRepositoryActivity : BaseActivity(), SearchView.OnQueryTextListener,
         activityManager.openRepositoryDetailActivity(searchRepoItem)
     }
 
-    private fun searchRepositories() {
+    private fun searchRepositories(page: Int) {
         if (searchQuery.isNotEmpty()) {
-            searchRepoViewModel.searchRepositories(searchQuery, sortQuery)
+            this.page = page
+            searchRepoViewModel.searchRepositories(searchQuery, sortQuery, this.page)
             loadingProgressBar.show()
             emptyListMessageTxt.visibility = View.GONE
             searchRepositoryRecyclerView.visibility = View.GONE
@@ -151,17 +161,39 @@ class SearchRepositoryActivity : BaseActivity(), SearchView.OnQueryTextListener,
     private fun searchRepoResponseLayout(repo: SearchRepository?) {
         loadingProgressBar.hide()
         searchRepoSwipeToRefresh.isRefreshing = false
+        loading = false
 
         if (!repo?.items.isNullOrEmpty()) {
+            response = repo!!
             with(searchRepoList) {
-                clear()
-                addAll(repo!!.items!!)
+                addAll(repo.items!!)
             }
             searchRepositoryRecyclerView.visibility = View.VISIBLE
             searchRepoAdapter.notifyDataSetChanged()
         } else {
             emptyListMessageTxt.visibility = View.VISIBLE
         }
+    }
+
+    private fun pagination() {
+        searchRepositoryRecyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+            override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
+                super.onScrollStateChanged(recyclerView, newState)
+
+                val lastVisibleItemPosition = mLayoutManager.findLastVisibleItemPosition()
+                val myTotalCount = searchRepoList.size - 5
+
+                if (newState > 0) {
+                    if ((lastVisibleItemPosition >= myTotalCount) && searchRepoList.size != response.totalCount) {
+                        if (!loading) {
+                            loading = true
+                            page += 1
+                            searchRepositories(page)
+                        }
+                    }
+                }
+            }
+        })
     }
 
 }

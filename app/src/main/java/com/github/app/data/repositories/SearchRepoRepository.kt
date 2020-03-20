@@ -5,6 +5,6 @@ import com.github.app.utils.Response
 
 interface SearchRepoRepository {
 
-    suspend fun searchDetails(query: String, sort: String) : Response<SearchRepository>
+    suspend fun searchDetails(query: String, sort: String, page: Int) : Response<SearchRepository>
 
 }

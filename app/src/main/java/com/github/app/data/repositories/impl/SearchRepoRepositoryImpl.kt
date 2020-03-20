@@ -10,8 +10,8 @@ import com.github.app.utils.ResponseSuccess
 
 class SearchRepoRepositoryImpl(private val networkApi: NetworkApi) : SearchRepoRepository {
 
-    override suspend fun searchDetails(query: String, sort: String): Response<SearchRepository> {
-        return when (val response = RequestExecutor.execute(networkApi.searchRepositoriesAsync(query, sort))) {
+    override suspend fun searchDetails(query: String, sort: String, page: Int): Response<SearchRepository> {
+        return when (val response = RequestExecutor.execute(networkApi.searchRepositoriesAsync(query, sort, page))) {
             is ResponseSuccess -> ResponseSuccess(response.data.body()!!)
             is ResponseError -> ResponseError(response.t)
         }

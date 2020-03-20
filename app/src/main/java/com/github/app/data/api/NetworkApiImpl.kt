@@ -7,8 +7,8 @@ import retrofit2.Response
 
 class NetworkApiImpl(private val gitHubApi: GitHubApi) : NetworkApi {
 
-    override fun searchRepositoriesAsync(query: String, sort: String):
-            Deferred<Response<SearchRepository>> = gitHubApi.searchRepositoriesAsync(query, sort)
+    override fun searchRepositoriesAsync(query: String, sort: String, page: Int):
+            Deferred<Response<SearchRepository>> = gitHubApi.searchRepositoriesAsync(query, sort, page)
 
     override fun getUserAsync(url: String):
             Deferred<Response<RepoOwner>> = gitHubApi.getUserAsync(url)
