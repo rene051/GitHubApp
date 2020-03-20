@@ -6,6 +6,7 @@ import android.view.MenuItem
 import android.view.View
 import androidx.lifecycle.ViewModelProvider
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+import com.bumptech.glide.Glide
 import com.github.app.R
 import com.github.app.common.AppConst.Companion.DEFAULT_DATE_FORMAT
 import com.github.app.common.AppConst.Companion.REPO_OWNER_EXTRA
@@ -101,6 +102,9 @@ class UserDetailActivity : BaseActivity(), SwipeRefreshLayout.OnRefreshListener 
         userDetailProgressBar.hide()
         userDetailsNestedScroll.visibility = View.VISIBLE
         browseUserMenuItem.isVisible = true
+
+        Glide.with(this).load(owner.avatarUrl).centerCrop()
+            .placeholder(R.drawable.ic_file_download).into(ownerImage)
         fullNameTxt.text = owner.name.showErrorOrText()
         companyTxt.text = owner.company.showErrorOrText()
         typeTxt.text = owner.type.showErrorOrText()

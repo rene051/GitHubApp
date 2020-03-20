@@ -27,13 +27,24 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
 
+                <ImageView
+                    android:id="@+id/ownerImage"
+                    android:layout_width="150dp"
+                    android:layout_height="150dp"
+                    android:layout_marginTop="16dp"
+                    android:layout_centerHorizontal="true"
+                    />
+
                 <TextView
                     android:id="@+id/fullNameDescTxt"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
                     android:text="@string/full_name"
-                    android:textStyle="bold" />
+                    android:textStyle="bold"
+                    android:layout_below="@+id/ownerImage"
+                    android:layout_marginTop="16dp"
+                    />
 
                 <TextView
                     android:id="@+id/fullNameTxt"
@@ -182,6 +193,5 @@
         </androidx.core.widget.NestedScrollView>
 
     </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
-
 
 </RelativeLayout>
