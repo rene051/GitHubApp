@@ -5,7 +5,9 @@ import com.github.app.data.api.GitHubApi
 import com.github.app.data.api.NetworkApi
 import com.github.app.data.api.NetworkApiImpl
 import com.github.app.data.repositories.SearchRepoRepository
+import com.github.app.data.repositories.UserDetailRepository
 import com.github.app.data.repositories.impl.SearchRepoRepositoryImpl
+import com.github.app.data.repositories.impl.UserDetailsRepositoryImpl
 import com.github.app.utils.network.InternetConnectionManager
 import com.github.app.utils.network.InternetConnectionManagerImpl
 import com.github.app.utils.network.ResponseInterceptor
@@ -44,5 +46,7 @@ val NetModule = module {
     factory { InternetConnectionManagerImpl(get()) as InternetConnectionManager }
 
     single { SearchRepoRepositoryImpl(get()) as SearchRepoRepository }
+
+    single { UserDetailsRepositoryImpl(get()) as UserDetailRepository }
 
 }

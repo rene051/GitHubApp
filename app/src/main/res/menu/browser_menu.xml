@@ -4,6 +4,7 @@
 
     <item android:id="@+id/openInBrowser"
         android:title="@string/open_in_browser"
+        android:visible="false"
         android:icon="@drawable/ic_open_in_browser_white"
         app:showAsAction="collapseActionView|ifRoom"/>
 

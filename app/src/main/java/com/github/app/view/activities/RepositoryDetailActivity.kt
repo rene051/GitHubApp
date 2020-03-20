@@ -6,10 +6,13 @@ import android.view.MenuItem
 import android.widget.SearchView
 import com.bumptech.glide.Glide
 import com.github.app.R
+import com.github.app.common.AppConst.Companion.DEFAULT_DATE_FORMAT
 import com.github.app.common.AppConst.Companion.REPO_EXTRA
+import com.github.app.common.AppConst.Companion.VISIBLE_DATE_FORMAT
 import com.github.app.data.models.SearchRepositoryItems
 import com.github.app.utils.helpers.convertDate
 import com.github.app.utils.helpers.openInBrowser
+import com.github.app.utils.helpers.showErrorOrText
 import com.github.app.view.ActivityManager
 import com.github.app.view.BaseActivity
 import kotlinx.android.synthetic.main.activity_repository_detail.*
@@ -64,12 +67,12 @@ class RepositoryDetailActivity : BaseActivity() {
     }
 
     private fun setRepoInfoLayout() {
-        fullNameTxt.text = repo.fullName
-        descriptionTxt.text = repo.description
-        languageTxt.text = repo.language
-        createDateTxt.text = repo.createdAt?.convertDate("yyyy-MM-dd'T'hh:mm:ss'Z'", "dd MMM yyyy")
-        updateDateTxt.text = repo.updatedAt?.convertDate("yyyy-MM-dd'T'hh:mm:ss'Z'", "dd MMM yyyy")
-        pushedDateTxt.text = repo.pushedAt?.convertDate("yyyy-MM-dd'T'hh:mm:ss'Z'", "dd MMM yyyy")
+        fullNameTxt.text = repo.fullName.showErrorOrText()
+        descriptionTxt.text = repo.description.showErrorOrText()
+        languageTxt.text = repo.language.showErrorOrText()
+        createDateTxt.text = repo.createdAt?.convertDate(DEFAULT_DATE_FORMAT, VISIBLE_DATE_FORMAT).showErrorOrText()
+        updateDateTxt.text = repo.updatedAt?.convertDate(DEFAULT_DATE_FORMAT, VISIBLE_DATE_FORMAT).showErrorOrText()
+        pushedDateTxt.text = repo.pushedAt?.convertDate(DEFAULT_DATE_FORMAT, VISIBLE_DATE_FORMAT).showErrorOrText()
         watchersTxt.text = repo.watchersCount.toString()
         forksTxt.text = repo.forkCount.toString()
         issuesTxt.text = repo.openIssuesCount.toString()
@@ -77,7 +80,7 @@ class RepositoryDetailActivity : BaseActivity() {
 
     private fun clickListeners() {
         ownerCard.setOnClickListener {
-            activityManager.openUserDetailActivity()
+            activityManager.openUserDetailActivity(repo.owner!!)
             finish()
         }
     }

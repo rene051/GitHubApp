@@ -20,11 +20,16 @@
     <string name="forks_">Forks:</string>
     <string name="issues_">Issues:</string>
     <string name="issues">Issues</string>
-    <string name="type">Type:</string>
+    <string name="type_">Type:</string>
+    <string name="type">Type</string>
     <string name="full_name">Full name</string>
     <string name="description">Description</string>
     <string name="created">Created</string>
     <string name="pushed">Pushed</string>
     <string name="open_in_browser">Open in browser</string>
+    <string name="company">Company</string>
+    <string name="email">Email</string>
+    <string name="public_repositories_count">Public repositories count</string>
+    <string name="followers">Followers</string>
 
 </resources>

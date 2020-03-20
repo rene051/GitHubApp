@@ -83,7 +83,34 @@ data class RepoOwner(
     @SerializedName("avatar_url")
     var avatarUrl: String? = null,
 
+    @SerializedName("url")
+    var url: String? = null,
+
     @SerializedName("type")
-    var type: String? = null
+    var type: String? = null,
+
+    @SerializedName("html_url")
+    var htmlUrl: String? = null,
+
+    @SerializedName("company")
+    var company: String? = null,
+
+    @SerializedName("name")
+    var name: String? = null,
+
+    @SerializedName("email")
+    var email: String? = null,
+
+    @SerializedName("public_repos")
+    var publicRepos: Int? = null,
+
+    @SerializedName("followers")
+    var followers: Int? = null,
+
+    @SerializedName("created_at")
+    var createdAt: String? = null,
+
+    @SerializedName("updated_at")
+    var updatedAt: String? = null
 
 ) : Parcelable

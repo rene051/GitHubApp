@@ -3,6 +3,7 @@ package com.github.app.utils.helpers
 import android.content.Context
 import android.content.Intent
 import android.net.Uri
+import com.github.app.common.AppConst.Companion.NOT_AVAILABLE
 import java.text.ParseException
 import java.text.SimpleDateFormat
 import java.util.*
@@ -23,4 +24,12 @@ fun String.convertDate(oldDateFormat: String, newDateFormat: String) : String {
 
 fun String.openInBrowser(context: Context) {
     context.startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(this)))
+}
+
+fun String?.showErrorOrText() : String {
+    return if(this.isNullOrEmpty()) {
+        NOT_AVAILABLE
+    } else {
+        this
+    }
 }

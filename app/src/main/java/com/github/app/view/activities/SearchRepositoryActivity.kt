@@ -25,6 +25,8 @@ import com.github.app.viewmodel.SearchRepoViewModel
 import kotlinx.android.synthetic.main.activity_search_repository.*
 import org.koin.core.inject
 import org.koin.core.parameter.parametersOf
+import java.util.*
+import kotlin.collections.ArrayList
 
 class SearchRepositoryActivity : BaseActivity(), SearchView.OnQueryTextListener,
     AdapterView.OnItemSelectedListener, SearchRepositoryClickListener {
@@ -104,7 +106,7 @@ class SearchRepositoryActivity : BaseActivity(), SearchView.OnQueryTextListener,
     override fun onNothingSelected(p0: AdapterView<*>?) { }
 
     override fun onItemSelected(p0: AdapterView<*>?, p1: View?, position: Int, id: Long) {
-        sortQuery = if (position == 0) "" else filterOptions[position]
+        sortQuery = if (position == 0) "" else filterOptions[position].toLowerCase(Locale.ENGLISH)
         searchRepositories()
     }
 
@@ -121,7 +123,7 @@ class SearchRepositoryActivity : BaseActivity(), SearchView.OnQueryTextListener,
     }
 
     override fun onAvatarClicked(repoOwner: RepoOwner) {
-        activityManager.openUserDetailActivity()
+        activityManager.openUserDetailActivity(repoOwner)
     }
 
     override fun onRepoClicked(searchRepoItem: SearchRepositoryItems) {

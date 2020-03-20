@@ -12,6 +12,12 @@ interface AppConst {
 
         //Extras
         const val REPO_EXTRA = "repoExtra"
+        const val REPO_OWNER_EXTRA = "repoOwnerExtra"
+
+        //Helpers
+        const val NOT_AVAILABLE = "n/a"
+        const val DEFAULT_DATE_FORMAT = "yyyy-MM-dd'T'hh:mm:ss'Z'"
+        const val VISIBLE_DATE_FORMAT = "dd MMM yyyy"
 
     }
 
