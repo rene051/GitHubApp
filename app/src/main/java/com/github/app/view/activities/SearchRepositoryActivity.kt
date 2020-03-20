@@ -8,6 +8,7 @@ import android.widget.ArrayAdapter
 import android.widget.SearchView
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.github.app.R
 import com.github.app.common.AppConst.Companion.FORKS
 import com.github.app.common.AppConst.Companion.NO_FILTER
@@ -29,7 +30,8 @@ import java.util.*
 import kotlin.collections.ArrayList
 
 class SearchRepositoryActivity : BaseActivity(), SearchView.OnQueryTextListener,
-    AdapterView.OnItemSelectedListener, SearchRepositoryClickListener {
+    AdapterView.OnItemSelectedListener, SearchRepositoryClickListener,
+    SwipeRefreshLayout.OnRefreshListener {
 
     private val activityManager: ActivityManager by inject { parametersOf(this) }
 
@@ -67,6 +69,10 @@ class SearchRepositoryActivity : BaseActivity(), SearchView.OnQueryTextListener,
         return true
     }
 
+    override fun onRefresh() {
+        searchRepositories()
+    }
+
     private fun init() {
         searchRepoList = ArrayList()
 
@@ -83,6 +89,7 @@ class SearchRepositoryActivity : BaseActivity(), SearchView.OnQueryTextListener,
 
     private fun clickListeners() {
         filterSpinner.onItemSelectedListener = this
+        searchRepoSwipeToRefresh.setOnRefreshListener(this)
     }
 
     private fun observeViewModel() {
@@ -103,7 +110,7 @@ class SearchRepositoryActivity : BaseActivity(), SearchView.OnQueryTextListener,
         }
     }
 
-    override fun onNothingSelected(p0: AdapterView<*>?) { }
+    override fun onNothingSelected(p0: AdapterView<*>?) {}
 
     override fun onItemSelected(p0: AdapterView<*>?, p1: View?, position: Int, id: Long) {
         sortQuery = if (position == 0) "" else filterOptions[position].toLowerCase(Locale.ENGLISH)
@@ -118,7 +125,7 @@ class SearchRepositoryActivity : BaseActivity(), SearchView.OnQueryTextListener,
     }
 
     override fun onQueryTextChange(searchQuery: String?): Boolean {
-        if(searchQuery.isNullOrEmpty()) this.searchQuery = ""
+        if (searchQuery.isNullOrEmpty()) this.searchQuery = ""
         return true
     }
 
@@ -136,11 +143,14 @@ class SearchRepositoryActivity : BaseActivity(), SearchView.OnQueryTextListener,
             loadingProgressBar.show()
             emptyListMessageTxt.visibility = View.GONE
             searchRepositoryRecyclerView.visibility = View.GONE
+        } else {
+            searchRepoSwipeToRefresh.isRefreshing = false
         }
     }
 
     private fun searchRepoResponseLayout(repo: SearchRepository?) {
         loadingProgressBar.hide()
+        searchRepoSwipeToRefresh.isRefreshing = false
 
         if (!repo?.items.isNullOrEmpty()) {
             with(searchRepoList) {

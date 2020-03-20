@@ -19,7 +19,7 @@ import com.github.app.view.BaseActivity
 import com.github.app.viewmodel.UserDetailViewModel
 import kotlinx.android.synthetic.main.activity_user_detail.*
 
-class UserDetailActivity : BaseActivity(), SwipeRefreshLayout.OnRefreshListener{
+class UserDetailActivity : BaseActivity(), SwipeRefreshLayout.OnRefreshListener {
 
     private lateinit var userDetailsViewModel: UserDetailViewModel
     private lateinit var owner: RepoOwner
@@ -90,13 +90,13 @@ class UserDetailActivity : BaseActivity(), SwipeRefreshLayout.OnRefreshListener{
         }
 
         userDetailsViewModel.repoOwnerFetched.observe(this) {
+            userDetailsSwipeRefresh.isRefreshing = false
             owner = it!!
             setUserDetailsLayout()
         }
     }
 
     private fun setUserDetailsLayout() {
-        userDetailsSwipeRefresh.isRefreshing = false
         userDetailProgressBar.hide()
         userDetailsNestedScroll.visibility = View.VISIBLE
         browseUserMenuItem.isVisible = true
@@ -106,7 +106,9 @@ class UserDetailActivity : BaseActivity(), SwipeRefreshLayout.OnRefreshListener{
         emailTxt.text = owner.email.showErrorOrText()
         publicRepoTxt.text = owner.publicRepos.toString()
         followersTxt.text = owner.followers.toString()
-        createdTxt.text = owner.createdAt?.convertDate(DEFAULT_DATE_FORMAT, VISIBLE_DATE_FORMAT).showErrorOrText()
-        updateTxt.text = owner.updatedAt?.convertDate(DEFAULT_DATE_FORMAT, VISIBLE_DATE_FORMAT).showErrorOrText()
+        createdTxt.text =
+            owner.createdAt?.convertDate(DEFAULT_DATE_FORMAT, VISIBLE_DATE_FORMAT).showErrorOrText()
+        updateTxt.text =
+            owner.updatedAt?.convertDate(DEFAULT_DATE_FORMAT, VISIBLE_DATE_FORMAT).showErrorOrText()
     }
 }

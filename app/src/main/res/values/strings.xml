@@ -31,5 +31,6 @@
     <string name="email">Email</string>
     <string name="public_repositories_count">Public repositories count</string>
     <string name="followers">Followers</string>
+    <string name="select_filter">Select filter:</string>
 
 </resources>
