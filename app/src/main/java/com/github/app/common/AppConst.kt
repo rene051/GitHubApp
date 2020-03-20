@@ -10,6 +10,9 @@ interface AppConst {
         const val FORKS = "Forks"
         const val UPDATED = "Updated"
 
+        //Extras
+        const val REPO_EXTRA = "repoExtra"
+
     }
 
 }

@@ -6,6 +6,7 @@ import android.widget.RelativeLayout
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import kotlinx.android.synthetic.main.item_repository.view.*
+import kotlinx.android.synthetic.main.layout_repo_additional_info.view.*
 
 class SearchRepositoryViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 

@@ -33,6 +33,24 @@ data class SearchRepositoryItems(
     @SerializedName("owner")
     var owner: RepoOwner? = null,
 
+    @SerializedName("html_url")
+    var htmlUrl: String? = null,
+
+    @SerializedName("created_at")
+    var createdAt: String? = null,
+
+    @SerializedName("updated_at")
+    var updatedAt: String? = null,
+
+    @SerializedName("pushed_at")
+    var pushedAt: String? = null,
+
+    @SerializedName("default_branch")
+    var defaultBranch: String? = null,
+
+    @SerializedName("size")
+    var size: Int? = null,
+
     @SerializedName("description")
     var description: String? = null,
 
@@ -63,6 +81,9 @@ data class RepoOwner(
     var login: String? = null,
 
     @SerializedName("avatar_url")
-    var avatarUrl: String? = null
+    var avatarUrl: String? = null,
+
+    @SerializedName("type")
+    var type: String? = null
 
 ) : Parcelable

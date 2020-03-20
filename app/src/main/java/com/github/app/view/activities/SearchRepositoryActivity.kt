@@ -125,7 +125,7 @@ class SearchRepositoryActivity : BaseActivity(), SearchView.OnQueryTextListener,
     }
 
     override fun onRepoClicked(searchRepoItem: SearchRepositoryItems) {
-        activityManager.openRepositoryDetailActivity()
+        activityManager.openRepositoryDetailActivity(searchRepoItem)
     }
 
     private fun searchRepositories() {

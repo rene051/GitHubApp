@@ -11,11 +11,20 @@
     <string name="error_has_occurred">Error has occurred</string>
     <string name="repository">Repository:</string>
     <string name="owner">Owner:</string>
-    <string name="language">Language:</string>
+    <string name="language_">Language:</string>
+    <string name="language">Language</string>
     <string name="score">Score:</string>
-    <string name="description">Description:</string>
-    <string name="watchers">Watchers:</string>
+    <string name="description_">Description:</string>
+    <string name="watchers_">Watchers:</string>
+    <string name="watchers">Watchers</string>
     <string name="forks_">Forks:</string>
-    <string name="issues">Issues:</string>
+    <string name="issues_">Issues:</string>
+    <string name="issues">Issues</string>
+    <string name="type">Type:</string>
+    <string name="full_name">Full name</string>
+    <string name="description">Description</string>
+    <string name="created">Created</string>
+    <string name="pushed">Pushed</string>
+    <string name="open_in_browser">Open in browser</string>
 
 </resources>
