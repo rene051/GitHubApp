@@ -76,7 +76,7 @@ class SearchRepositoryActivity : BaseActivity(), SearchView.OnQueryTextListener,
     }
 
     override fun onRefresh() {
-        searchRepositories(1)
+        initSearchRepositories()
         searchRepoList.clear()
     }
 
@@ -121,13 +121,13 @@ class SearchRepositoryActivity : BaseActivity(), SearchView.OnQueryTextListener,
 
     override fun onItemSelected(p0: AdapterView<*>?, p1: View?, position: Int, id: Long) {
         sortQuery = if (position == 0) "" else filterOptions[position].toLowerCase(Locale.ENGLISH)
-        searchRepositories(1)
+        initSearchRepositories()
         searchRepoList.clear()
     }
 
     override fun onQueryTextSubmit(searchQuery: String?): Boolean {
         this.searchQuery = searchQuery!!
-        searchRepositories(1)
+        initSearchRepositories()
         searchRepoList.clear()
         hideKeyboard()
         return true
@@ -146,10 +146,10 @@ class SearchRepositoryActivity : BaseActivity(), SearchView.OnQueryTextListener,
         activityManager.openRepositoryDetailActivity(searchRepoItem)
     }
 
-    private fun searchRepositories(page: Int) {
+    private fun initSearchRepositories() {
         if (searchQuery.isNotEmpty()) {
-            this.page = page
-            searchRepoViewModel.searchRepositories(searchQuery, sortQuery, this.page)
+            page = 1
+            searchRepoViewModel.searchRepositories(searchQuery, sortQuery, page)
             loadingProgressBar.show()
             emptyListMessageTxt.visibility = View.GONE
             searchRepositoryRecyclerView.visibility = View.GONE
@@ -162,6 +162,7 @@ class SearchRepositoryActivity : BaseActivity(), SearchView.OnQueryTextListener,
         loadingProgressBar.hide()
         searchRepoSwipeToRefresh.isRefreshing = false
         loading = false
+        if(page != 1) searchRepoAdapter.removeLoadingFooter()
 
         if (!repo?.items.isNullOrEmpty()) {
             response = repo!!
@@ -181,14 +182,15 @@ class SearchRepositoryActivity : BaseActivity(), SearchView.OnQueryTextListener,
                 super.onScrollStateChanged(recyclerView, newState)
 
                 val lastVisibleItemPosition = mLayoutManager.findLastVisibleItemPosition()
-                val myTotalCount = searchRepoList.size - 5
+                val myTotalCount = searchRepoList.size - 10
 
                 if (newState > 0) {
                     if ((lastVisibleItemPosition >= myTotalCount) && searchRepoList.size != response.totalCount) {
                         if (!loading) {
                             loading = true
                             page += 1
-                            searchRepositories(page)
+                            searchRepoViewModel.searchRepositories(searchQuery, sortQuery, page)
+                            searchRepoAdapter.addLoadingFooter()
                         }
                     }
                 }

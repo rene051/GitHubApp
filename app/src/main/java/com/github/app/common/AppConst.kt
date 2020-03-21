@@ -19,6 +19,10 @@ interface AppConst {
         const val DEFAULT_DATE_FORMAT = "yyyy-MM-dd'T'hh:mm:ss'Z'"
         const val VISIBLE_DATE_FORMAT = "dd MMM yyyy"
 
+        //ViewHolder type
+        const val ITEM_TYPE = 0
+        const val LOADING_TYPE = 1
+
     }
 
 }
