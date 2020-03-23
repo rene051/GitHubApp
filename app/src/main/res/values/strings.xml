@@ -1,3 +1,35 @@
 <resources>
     <string name="app_name">GitHubApp</string>
+    
+    <string name="search_repositories">Search repositories</string>
+    <string name="there_are_no_items_to_show">There are no items to show</string>
+
+    <string name="stars">Stars</string>
+    <string name="forks">Forks</string>
+    <string name="updated">Updated</string>
+    <string name="ok">OK</string>
+    <string name="repository">Repository:</string>
+    <string name="owner">Owner:</string>
+    <string name="language_">Language:</string>
+    <string name="language">Language</string>
+    <string name="score">Score:</string>
+    <string name="description_">Description:</string>
+    <string name="watchers_">Watchers:</string>
+    <string name="watchers">Watchers</string>
+    <string name="forks_">Forks:</string>
+    <string name="issues_">Issues:</string>
+    <string name="issues">Issues</string>
+    <string name="type_">Type:</string>
+    <string name="type">Type</string>
+    <string name="full_name">Full name</string>
+    <string name="description">Description</string>
+    <string name="created">Created</string>
+    <string name="pushed">Pushed</string>
+    <string name="open_in_browser">Open in browser</string>
+    <string name="company">Company</string>
+    <string name="email">Email</string>
+    <string name="public_repositories_count">Public repositories count</string>
+    <string name="followers">Followers</string>
+    <string name="select_filter">Select filter:</string>
+
 </resources>

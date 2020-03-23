@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginStart="16dp"
+    android:layout_marginTop="8dp"
+    android:layout_marginEnd="16dp"
+    android:layout_marginBottom="8dp"
+    app:cardCornerRadius="5dp">
+
+    <RelativeLayout
+        android:id="@+id/itemRepoRelativeLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ImageView
+            android:id="@+id/userImage"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginBottom="8dp"
+            android:src="@mipmap/ic_launcher" />
+
+        <RelativeLayout
+            android:id="@+id/repoInfoRelativeLayout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:layout_toEndOf="@+id/userImage">
+
+            <TextView
+                android:id="@+id/repoNameDesc"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/repository"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/repoName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="4dp"
+                android:layout_marginEnd="16dp"
+                android:layout_toEndOf="@+id/repoNameDesc"
+                android:ellipsize="end"
+                android:maxLines="1" />
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/ownerInfoRelativeLayout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/repoInfoRelativeLayout"
+            android:layout_marginTop="8dp"
+            android:layout_toEndOf="@+id/userImage">
+
+            <TextView
+                android:id="@+id/ownerNameDesc"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/owner"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/ownerName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="4dp"
+                android:layout_marginEnd="16dp"
+                android:layout_toEndOf="@+id/ownerNameDesc"
+                android:ellipsize="end"
+                android:maxLines="1" />
+
+        </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/repoLanguageRelativeLayout"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/userImage"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp">
+
+                <TextView
+                    android:id="@+id/repoLanguageDescTxt"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/language_"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/repoLanguageNameTxt"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="4dp"
+                    android:layout_toEndOf="@+id/repoLanguageDescTxt" />
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/repoScoreRelativeLayout"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/repoLanguageRelativeLayout"
+                android:layout_marginTop="8dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                >
+
+                <TextView
+                    android:id="@+id/repoScoreDescTxt"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/score"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/repoScoreNameTxt"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="4dp"
+                    android:layout_toEndOf="@+id/repoScoreDescTxt" />
+
+            </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/repoDescRelativeLayout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/repoScoreRelativeLayout"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="16dp">
+
+            <TextView
+                android:id="@+id/repoDescDescTxt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/description_"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/repoDescTxt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/repoDescDescTxt"
+                android:ellipsize="end"
+                android:maxLines="3" />
+
+        </RelativeLayout>
+
+        <include
+            layout="@layout/layout_repo_additional_info"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/repoDescRelativeLayout"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="16dp"
+            />
+
+    </RelativeLayout>
+
+</androidx.cardview.widget.CardView>

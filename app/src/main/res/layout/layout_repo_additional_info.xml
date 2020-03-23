@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="8dp"
+    android:layout_marginBottom="16dp"
+    android:baselineAligned="false"
+    android:weightSum="3">
+
+    <RelativeLayout
+        android:id="@+id/watcherInfoRelativeLayout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_weight="1">
+
+        <TextView
+            android:id="@+id/watcherCountDesc"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/watchers_"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/watcherCount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="4dp"
+            android:layout_marginEnd="16dp"
+            android:layout_toEndOf="@+id/watcherCountDesc"
+            android:ellipsize="end"
+            android:maxLines="1" />
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/forkInfoRelativeLayout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="1">
+
+        <TextView
+            android:id="@+id/forkCountDesc"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/forks_"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/forkCount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="4dp"
+            android:layout_marginEnd="16dp"
+            android:layout_toEndOf="@+id/forkCountDesc"
+            android:ellipsize="end"
+            android:maxLines="1" />
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/issueInfoRelativeLayout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="1">
+
+        <TextView
+            android:id="@+id/issueCountDesc"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/issues_"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/issueCount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="4dp"
+            android:layout_marginEnd="16dp"
+            android:layout_toEndOf="@+id/issueCountDesc"
+            android:ellipsize="end"
+            android:maxLines="1" />
+
+    </RelativeLayout>
+
+</LinearLayout>
