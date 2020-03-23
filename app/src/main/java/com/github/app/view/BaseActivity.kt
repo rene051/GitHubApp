@@ -5,6 +5,8 @@ import android.view.View
 import android.view.inputmethod.InputMethodManager
 import androidx.appcompat.app.AppCompatActivity
 import com.github.app.R
+import com.github.app.common.AppConst.Companion.CHECK_INTERNET_CONNECTION
+import com.github.app.common.AppConst.Companion.DEFAULT_ERROR_MESSAGE
 import com.github.app.utils.dialogs.DialogManager
 import com.github.app.utils.network.InternetConnectionException
 import org.koin.core.KoinComponent
@@ -17,7 +19,7 @@ abstract class BaseActivity : AppCompatActivity(), KoinComponent {
 
     protected open fun handleError(throwable: Throwable?) {
         if(throwable is InternetConnectionException) {
-            showError("Check your internet connection!")
+            showError(CHECK_INTERNET_CONNECTION)
         } else {
             showError(throwable?.message!!)
         }
@@ -27,7 +29,7 @@ abstract class BaseActivity : AppCompatActivity(), KoinComponent {
     private fun showError(errorMessage: String) {
         getDialogManager().openOneButtonDialog(
             R.string.ok,
-            getString(R.string.error_has_occurred),
+            DEFAULT_ERROR_MESSAGE,
             errorMessage,
             true
         )

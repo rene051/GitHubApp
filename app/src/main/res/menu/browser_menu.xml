@@ -5,6 +5,8 @@
     <item android:id="@+id/openInBrowser"
         android:title="@string/open_in_browser"
         android:icon="@drawable/ic_open_in_browser_white"
-        app:showAsAction="collapseActionView|ifRoom"/>
+        app:showAsAction="collapseActionView|ifRoom"
+        android:visible="false"
+        />
 
 </menu>

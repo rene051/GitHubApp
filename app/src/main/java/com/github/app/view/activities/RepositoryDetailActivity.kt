@@ -3,7 +3,6 @@ package com.github.app.view.activities
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
-import android.widget.SearchView
 import com.bumptech.glide.Glide
 import com.github.app.R
 import com.github.app.common.AppConst.Companion.DEFAULT_DATE_FORMAT
@@ -35,6 +34,12 @@ class RepositoryDetailActivity : BaseActivity() {
         setOwnerCardLayout()
         setRepoInfoLayout()
         clickListeners()
+    }
+
+    override fun onPrepareOptionsMenu(menu: Menu?): Boolean {
+        if(!repo.htmlUrl.isNullOrEmpty()) menu!!.findItem(R.id.openInBrowser).isVisible = true
+
+        return super.onPrepareOptionsMenu(menu)
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {

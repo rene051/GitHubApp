@@ -23,8 +23,8 @@ import kotlinx.android.synthetic.main.activity_user_detail.*
 class UserDetailActivity : BaseActivity(), SwipeRefreshLayout.OnRefreshListener {
 
     private lateinit var userDetailsViewModel: UserDetailViewModel
-    private lateinit var owner: RepoOwner
     private lateinit var browseUserMenuItem: MenuItem
+    private lateinit var owner: RepoOwner
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -40,7 +40,6 @@ class UserDetailActivity : BaseActivity(), SwipeRefreshLayout.OnRefreshListener 
 
     override fun onPrepareOptionsMenu(menu: Menu?): Boolean {
         browseUserMenuItem = menu!!.findItem(R.id.openInBrowser)
-        browseUserMenuItem.isVisible = false
 
         return super.onPrepareOptionsMenu(menu)
     }
@@ -101,7 +100,7 @@ class UserDetailActivity : BaseActivity(), SwipeRefreshLayout.OnRefreshListener 
     private fun setUserDetailsLayout() {
         userDetailProgressBar.hide()
         userDetailsNestedScroll.visibility = View.VISIBLE
-        browseUserMenuItem.isVisible = true
+        if(!owner.htmlUrl.isNullOrEmpty()) browseUserMenuItem.isVisible = true
 
         Glide.with(this).load(owner.avatarUrl).centerCrop()
             .placeholder(R.drawable.ic_file_download).into(ownerImage)

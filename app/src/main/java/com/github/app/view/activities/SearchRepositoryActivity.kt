@@ -19,6 +19,7 @@ import com.github.app.data.models.RepoOwner
 import com.github.app.data.models.SearchRepository
 import com.github.app.data.models.SearchRepositoryItems
 import com.github.app.utils.helpers.observe
+import com.github.app.utils.network.InternetConnectionManager
 import com.github.app.view.ActivityManager
 import com.github.app.view.BaseActivity
 import com.github.app.view.adapters.SearchRepositoryAdapter
@@ -35,6 +36,7 @@ class SearchRepositoryActivity : BaseActivity(), SearchView.OnQueryTextListener,
     SwipeRefreshLayout.OnRefreshListener {
 
     private val activityManager: ActivityManager by inject { parametersOf(this) }
+    private val internetConnectionManager: InternetConnectionManager by inject()
 
     private lateinit var searchRepoViewModel: SearchRepoViewModel
     private lateinit var searchRepoAdapter: SearchRepositoryAdapter
@@ -77,7 +79,6 @@ class SearchRepositoryActivity : BaseActivity(), SearchView.OnQueryTextListener,
 
     override fun onRefresh() {
         initSearchRepositories()
-        searchRepoList.clear()
     }
 
     private fun init() {
@@ -122,13 +123,11 @@ class SearchRepositoryActivity : BaseActivity(), SearchView.OnQueryTextListener,
     override fun onItemSelected(p0: AdapterView<*>?, p1: View?, position: Int, id: Long) {
         sortQuery = if (position == 0) "" else filterOptions[position].toLowerCase(Locale.ENGLISH)
         initSearchRepositories()
-        searchRepoList.clear()
     }
 
     override fun onQueryTextSubmit(searchQuery: String?): Boolean {
         this.searchQuery = searchQuery!!
         initSearchRepositories()
-        searchRepoList.clear()
         hideKeyboard()
         return true
     }
@@ -146,29 +145,39 @@ class SearchRepositoryActivity : BaseActivity(), SearchView.OnQueryTextListener,
         activityManager.openRepositoryDetailActivity(searchRepoItem)
     }
 
+    private fun searchRepoApiCall() {
+        searchRepoViewModel.searchRepositories(searchQuery, sortQuery, page)
+    }
+
     private fun initSearchRepositories() {
         if (searchQuery.isNotEmpty()) {
             page = 1
-            searchRepoViewModel.searchRepositories(searchQuery, sortQuery, page)
-            loadingProgressBar.show()
-            emptyListMessageTxt.visibility = View.GONE
-            searchRepositoryRecyclerView.visibility = View.GONE
+            setInitLayout()
+            searchRepoApiCall()
         } else {
             searchRepoSwipeToRefresh.isRefreshing = false
         }
+    }
+
+    private fun setInitLayout() {
+        searchRepoList.clear()
+        searchRepositoryRecyclerView.recycledViewPool.clear()
+        searchRepoAdapter.notifyDataSetChanged()
+        loadingProgressBar.show()
+        emptyListMessageTxt.visibility = View.GONE
+        searchRepositoryRecyclerView.visibility = View.GONE
     }
 
     private fun searchRepoResponseLayout(repo: SearchRepository?) {
         loadingProgressBar.hide()
         searchRepoSwipeToRefresh.isRefreshing = false
         loading = false
+
         if(page != 1) searchRepoAdapter.removeLoadingFooter()
 
         if (!repo?.items.isNullOrEmpty()) {
             response = repo!!
-            with(searchRepoList) {
-                addAll(repo.items!!)
-            }
+            searchRepoList.addAll(repo.items!!)
             searchRepositoryRecyclerView.visibility = View.VISIBLE
             searchRepoAdapter.notifyDataSetChanged()
         } else {
@@ -178,19 +187,21 @@ class SearchRepositoryActivity : BaseActivity(), SearchView.OnQueryTextListener,
 
     private fun pagination() {
         searchRepositoryRecyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
-            override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
-                super.onScrollStateChanged(recyclerView, newState)
+            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                super.onScrolled(recyclerView, dx, dy)
 
                 val lastVisibleItemPosition = mLayoutManager.findLastVisibleItemPosition()
                 val myTotalCount = searchRepoList.size - 10
 
-                if (newState > 0) {
-                    if ((lastVisibleItemPosition >= myTotalCount) && searchRepoList.size != response.totalCount) {
-                        if (!loading) {
-                            loading = true
-                            page += 1
-                            searchRepoViewModel.searchRepositories(searchQuery, sortQuery, page)
-                            searchRepoAdapter.addLoadingFooter()
+                if (dy > 0) {
+                    if(internetConnectionManager.hasInternetConnection()) {
+                        if ((lastVisibleItemPosition >= myTotalCount) && searchRepoList.size != response.totalCount) {
+                            if (!loading) {
+                                loading = true
+                                page += 1
+                                searchRepoApiCall()
+                                searchRepoAdapter.addLoadingFooter(searchRepositoryRecyclerView)
+                            }
                         }
                     }
                 }

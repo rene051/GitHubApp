@@ -16,19 +16,6 @@ fun <T> LiveData<T>.observe(owner: LifecycleOwner, f: (T?) -> Unit) {
 
 object RequestExecutor {
 
-    suspend fun <T> execute(
-        request: Deferred<T>,
-        onSuccess: (T) -> Unit,
-        onError: ((Throwable) -> Unit)? = null
-    ) {
-        try {
-            val response = request.await()
-            onSuccess.invoke(response)
-        } catch (e: Exception) {
-            onError?.invoke(e)
-        }
-    }
-
     suspend fun <T> execute(request: Deferred<T>): Response<T> {
         return try {
             val response = request.await()

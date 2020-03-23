@@ -8,7 +8,7 @@ import android.os.Build
 class InternetConnectionManagerImpl(private val context: Context) : InternetConnectionManager {
 
     override fun hasInternetConnection(): Boolean {
-        var result = false
+        val result: Boolean
         val connectivityManager =
             context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {

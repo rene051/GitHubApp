@@ -8,7 +8,6 @@ import java.text.ParseException
 import java.text.SimpleDateFormat
 import java.util.*
 
-
 fun String.convertDate(oldDateFormat: String, newDateFormat: String) : String {
     val form = SimpleDateFormat(oldDateFormat, Locale.forLanguageTag("en"))
     var date: Date? = null

@@ -1,9 +1,7 @@
 package com.github.app.utils.network
 
-import android.net.ConnectivityManager
 import okhttp3.Interceptor
 import okhttp3.Response
-
 
 class ResponseInterceptor(private val internetConnectionManager: InternetConnectionManager) : Interceptor {
 

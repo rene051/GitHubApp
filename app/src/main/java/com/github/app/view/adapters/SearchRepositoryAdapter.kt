@@ -75,17 +75,13 @@ class SearchRepositoryAdapter(
                 }
             }
         }
-
     }
 
-    private fun add() {
-        searchRepoList.add(SearchRepositoryItems())
-        notifyItemInserted(searchRepoList.size - 1)
-    }
-
-    fun addLoadingFooter() {
+    fun addLoadingFooter(recyclerView: RecyclerView) {
         isLoadingAdded = true
-        add()
+
+        searchRepoList.add(SearchRepositoryItems())
+        recyclerView.post {  notifyItemInserted(searchRepoList.size - 1) }
     }
 
     fun removeLoadingFooter() {
@@ -95,7 +91,6 @@ class SearchRepositoryAdapter(
 
         searchRepoList.removeAt(position)
         notifyItemRemoved(position)
-
     }
 
 

@@ -23,6 +23,10 @@ interface AppConst {
         const val ITEM_TYPE = 0
         const val LOADING_TYPE = 1
 
+        //Error
+        const val DEFAULT_ERROR_MESSAGE = "Error has occurred"
+        const val CHECK_INTERNET_CONNECTION = "Check your internet connection!"
+
     }
 
 }
